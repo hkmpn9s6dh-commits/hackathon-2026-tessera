@@ -123,11 +123,33 @@ What the 29 cover, in the order a judge would do them:
   aborted;
 - no page errors, no horizontal scroll at 1440 or 390, verdict readable on a phone.
 
-## 6. Process notes, including the ones that are not flattering
+## 6. Gate D — blind ranking
 
-- **Gate D was attempted before the video**, in that order this time: hero screenshots → blind
-  ranking → video/cover. On the previous entry the video was made before gate D and had to be
-  redone; the order in `AGENTS.md` exists because of that.
+Six 1440×900 first screens: ours plus Stripe, Tailscale, Sigstore, are.na and ViewBlock, shuffled
+into A–F with no labels (`proof/rank/`, mapping in `order.json`). Three judges from three model
+families (GPT-5.6, GLM-5.3-Flash, DeepSeek-Flash), none of whom built it, were asked only whether
+they would keep reading and whether they could tell what it is.
+
+| Judge | Ours | Ranked above | Result |
+|---|---|---|---|
+| AME-1371 GPT-5.6 | 3 / 6 | are.na, ViewBlock, Sigstore | passes |
+| AME-1373 GLM-5.3-Flash | 3 / 6 | ViewBlock, are.na, Sigstore | passes |
+| AME-1374 DeepSeek-Flash | 3 / 6 | are.na, ViewBlock, Sigstore | passes |
+
+Three of three placed it above three references, which is the bar. Both commercial hero pages beat
+it; that is recorded as-is in `proof/rank/README.md`.
+
+Two defects the judges named were fixed after the ranking and are the only changes to the screen
+since: a tile label collided with its step number, and the forged verdict printed the signature
+failure twice. The hierarchy complaint — a 60 px verdict beside a 15 px identity line — was **not**
+fixed, because fixing it means redesigning the first screen and invalidating the ranking that just
+passed. It is the first item for the next entry.
+
+## 7. Process notes, including the ones that are not flattering
+
+- **Gate D ran before the video**, in that order this time: hero screenshots → blind ranking →
+  video → cover. On the previous entry the video was made before gate D and had to be redone; the
+  order in `AGENTS.md` exists because of that.
 - **The demo agent is deterministic.** That is a deliberate limitation, not a hidden one: it is
   what makes 200/200 localisation and a reproducible root possible without a key. `docs/03` says
   what changes with a real model and why it is not in v1.

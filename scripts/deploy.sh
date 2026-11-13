@@ -2,7 +2,7 @@
 # Publish dist/ to the gh-pages branch, which is what GitHub Pages serves.
 # HTTPS pushes from this machine need HTTP/1.1 and a large buffer, or they drop mid-upload.
 set -euo pipefail
-REMOTE=$(git remote get-url origin)
+REMOTE=${DEPLOY_REMOTE:-git@github.com:hkmpn9s6dh-commits/hackathon-2026-tessera.git}
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 cp -r dist/. "$TMP"/
@@ -11,5 +11,10 @@ git init -q
 git checkout -q -b gh-pages
 git add -A
 git -c user.name="CB" -c user.email="cb@example.invalid" commit -q -m "publish dist"
-git -c http.version=HTTP/1.1 -c http.postBuffer=524288000 push -f "$REMOTE" gh-pages
+# Over SSH when it is reachable: HTTPS to github.com is intermittently blocked from this network.
+if GIT_SSH_COMMAND="ssh -i $HOME/.ssh/tessera_deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=no" git push -f "$REMOTE" gh-pages; then
+  :
+else
+  git -c http.version=HTTP/1.1 -c http.postBuffer=524288000 push -f "$REMOTE" gh-pages
+fi
 echo "published: $(git rev-parse --short HEAD)"
