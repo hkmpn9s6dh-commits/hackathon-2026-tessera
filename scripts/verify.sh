@@ -29,7 +29,7 @@ command -v npm >/dev/null 2>&1 && ok "npm available" || bad "npm available"
 if npx tsc --noEmit --pretty false >tmp/ts-tsc.log 2>&1; then ok "typescript type check"; else bad "typescript type check"; tail -8 tmp/ts-tsc.log; fi
 
 if npx vitest run --reporter=dot >tmp/ts-unit.log 2>&1; then
-  ok "unit checks ($(grep -oE 'Tests +[0-9]+ passed' tmp/ts-unit.log | head -1 || echo '?'))"
+  ok "unit checks ($(grep -oE '[0-9]+ passed' tmp/ts-unit.log | tail -1 || echo '?'))"
 else
   bad "unit checks"; tail -20 tmp/ts-unit.log
 fi

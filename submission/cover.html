@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tessera cover</title>
+    <style>
+      @font-face { font-family: 'Fraunces'; src: url('../src/fonts/fraunces-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; }
+      @font-face { font-family: 'Plex Sans'; src: url('../src/fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2'); font-weight: 400; }
+      @font-face { font-family: 'Plex Sans'; src: url('../src/fonts/ibm-plex-sans-latin-500-normal.woff2') format('woff2'); font-weight: 500; }
+      @font-face { font-family: 'Plex Mono'; src: url('../src/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); font-weight: 400; }
+      @font-face { font-family: 'Plex Mono'; src: url('../src/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2'); font-weight: 500; }
+      * { box-sizing: border-box; margin: 0; }
+      body {
+        width: 1500px; height: 1000px; overflow: hidden;
+        background: #f6f3ea; color: #15171b;
+        font-family: 'Plex Sans', system-ui, sans-serif;
+        background-image: repeating-linear-gradient(0deg, rgba(21,23,27,.03) 0 1px, transparent 1px 34px);
+      }
+      .frame { position: absolute; inset: 46px; border: 1px solid #15171b; padding: 46px 54px; display: flex; flex-direction: column; }
+      .top { display: flex; align-items: baseline; gap: 22px; }
+      .mark { font-family: 'Plex Mono'; font-size: 30px; letter-spacing: .28em; }
+      .kicker { font-family: 'Plex Mono'; font-size: 17px; letter-spacing: .16em; text-transform: uppercase; color: #8a6a2f; margin-left: auto; }
+      h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 104px; line-height: .96; letter-spacing: -.025em; margin-top: 40px; max-width: 1180px; }
+      h1 em { font-style: normal; color: #a8332a; }
+      .sub { font-size: 27px; line-height: 1.4; color: #5c5a52; margin-top: 22px; max-width: 1000px; }
+      .strip { display: flex; gap: 9px; margin-top: auto; }
+      .tile { position: relative; width: 96px; height: 84px; border: 1px solid #15171b; background: #fffdf7; padding: 26px 8px 9px; font-family: 'Plex Mono'; font-size: 13px; }
+      .tile .n { position: absolute; top: 7px; right: 8px; font-size: 11px; color: #b9b09a; }
+      .tile .h { position: absolute; bottom: 8px; left: 8px; font-size: 11px; color: #5c5a52; }
+      .tile.bad { border-color: #a8332a; background: #fdf1ef; color: #a8332a; }
+      .tile.bad .h { color: #a8332a; }
+      .tile.bad::after { content: ''; position: absolute; right: 0; bottom: 0; width: 24px; height: 24px;
+        background: linear-gradient(135deg, transparent 48%, rgba(168,51,42,.55) 49%, rgba(168,51,42,.55) 51%, rgba(168,51,42,.18) 52%); }
+      .foot { display: flex; align-items: baseline; gap: 26px; margin-top: 22px; font-family: 'Plex Mono'; font-size: 16px; color: #5c5a52; }
+      .foot .url { color: #15171b; }
+      .foot .right { margin-left: auto; }
+      .stamp { position: absolute; right: 76px; top: 250px; transform: rotate(-7deg); border: 3px solid #a8332a; color: #a8332a;
+        font-family: 'Plex Mono'; font-size: 20px; letter-spacing: .18em; padding: 10px 16px; opacity: .85; }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="top">
+        <div class="mark">TESSERA</div>
+        <div class="kicker">verifiable AI · round 2</div>
+      </div>
+      <h1>Receipts an agent<br />cannot <em>edit</em> after<br />the fact.</h1>
+      <p class="sub">A 6 KB file that proves what an AI agent did — which step, which field — on a page that talks to nothing.</p>
+      <div class="stamp">TAMPERED · STEP 04</div>
+      <div class="strip">
+        <div class="tile"><span class="n">00</span>list<span class="h">cefa1a4a</span></div>
+        <div class="tile"><span class="n">01</span>read<span class="h">f7d945b8</span></div>
+        <div class="tile"><span class="n">02</span>read<span class="h">c5cbb5ec</span></div>
+        <div class="tile"><span class="n">03</span>redact<span class="h">091fa3ce</span></div>
+        <div class="tile bad"><span class="n">04</span>read<span class="h">result</span></div>
+        <div class="tile"><span class="n">05</span>redact<span class="h">11b99a6e</span></div>
+        <div class="tile"><span class="n">06</span>read<span class="h">c16428b5</span></div>
+        <div class="tile"><span class="n">07</span>redact<span class="h">03bc8754</span></div>
+        <div class="tile"><span class="n">08</span>summary<span class="h">ca391319</span></div>
+        <div class="tile"><span class="n">09</span>tally<span class="h">6d84655a</span></div>
+        <div class="tile"><span class="n">10</span>write<span class="h">6d0a6c34</span></div>
+        <div class="tile"><span class="n">11</span>notify<span class="h">3a103970</span></div>
+      </div>
+      <div class="foot">
+        <span class="url">hkmpn9s6dh-commits.github.io/hackathon-2026-tessera</span>
+        <span class="right">MIT · 0 network calls · 200/200 mutations located</span>
+      </div>
+    </div>
+  </body>
+</html>

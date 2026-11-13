@@ -42,7 +42,7 @@ does not make the disclosed step private.
 | | |
 |---|---|
 | 12-step bundle | **6,435 bytes** (536 B/step) |
-| 186-step bundle | 94,884 bytes, verifies in **43 ms** (Node, median of 5) |
+| 246-step bundle | 125,449 bytes, verifies in **53 ms** (Node, median of 5) |
 | Disclosure proof | **1,662 bytes** for step 4 of 12 (4 hashes) |
 | Tamper localisation | **200/200** single-field mutations located to the right step *and* field |
 | External requests during verification | **0** (asserted in the browser test and shown in the header) |

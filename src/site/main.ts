@@ -71,8 +71,6 @@ function paintVerdict(): void {
     .filter((f) => f.step >= 0)
     .slice(0, 2)
     .map((f) => `<tr><td class="c-name">step ${f.step}</td><td class="c-state fail">!</td><td class="c-ms"></td><td class="c-detail"><b>${f.field}</b> · ${f.note}</td></tr>`);
-  const sig = verdict.failures.find((f) => f.field === 'sig');
-  if (sig) rows.push(`<tr><td class="c-name">signature</td><td class="c-state fail">!</td><td class="c-ms"></td><td class="c-detail"><b>key</b> · ${sig.note}</td></tr>`);
   $('checks').innerHTML = [...rows, ...extra].join('');
   $('f-steps').textContent = String(verdict.steps);
   $('f-bytes').textContent = `${verdict.bytes.toLocaleString('en-US')} B`;
@@ -111,9 +109,12 @@ async function paintStrip(): Promise<void> {
     });
     strip.append(li);
   }
+  const stepFindings = verdict.failures.filter((f) => f.step >= 0).length;
   $('strip-hint').textContent = verdict.ok
     ? `${verdict.steps} steps · every hash recomputed`
-    : `${verdict.failures.length} finding${verdict.failures.length === 1 ? '' : 's'} · click the red tile`;
+    : stepFindings > 0
+      ? `${stepFindings} finding${stepFindings === 1 ? '' : 's'} · click the red tile`
+      : 'the chain is intact · the seal is not';
   if (!verdict.ok) {
     const firstBad = [...failingSteps.keys()][0];
     if (firstBad !== undefined) await showDetail(firstBad);
