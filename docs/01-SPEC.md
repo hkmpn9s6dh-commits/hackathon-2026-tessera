@@ -32,7 +32,7 @@ Tessera is aimed at *verifiable and reproducible* plus *data sovereignty*.
 | AC-1 | A clean bundle verifies | `node scripts/tessera.mjs verify proof/samples/clean.tessera` → exit 0, prints `PASS`, `checks 4/4`, `steps 8` |
 | AC-2 | A tampered bundle fails and is localised | `node scripts/tessera.mjs verify proof/samples/tampered.tessera` → exit 1, names `step 4`, field `result`, and the two differing hashes |
 | AC-3 | A re-signed-but-forged bundle fails on the signature | `node scripts/tessera.mjs verify proof/samples/forged.tessera` → exit 1, failing check `signature` |
-| AC-4 | Bundles stay small | clean bundle ≤ 8 192 bytes for 8 steps |
+| AC-4 | Bundles stay small | clean bundle ≤ 8 192 bytes for 12 steps |
 | AC-5 | Verification is fast | 240-step bundle verifies in < 400 ms (median of 5 runs, this machine) with no network |
 | AC-6 | Selective disclosure works alone | `node scripts/tessera.mjs prove proof/samples/clean.tessera --step 4 --out /tmp/p.json` then `check-proof /tmp/p.json` → exit 0 without the bundle; flipping one byte of the disclosed step → exit 1 |
 | AC-7 | Tamper localisation is not luck | `node scripts/tessera.mjs selfcheck` → 200 random single-field mutations, 100 % located to the right step **and** field |

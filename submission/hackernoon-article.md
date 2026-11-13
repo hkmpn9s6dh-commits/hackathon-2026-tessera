@@ -34,7 +34,7 @@ And a fourth thing, which is the part that makes it usable between parties: an o
 
 The demo is a deterministic agent so that every byte is reproducible. In the browser you press
 *Run the agent*, watch twelve tiles land, press *Seal*, and get a 6,435-byte file. Drag that file
-back into the page and it verifies in about 12 ms. Load the tampered sample and exactly one tile
+back into the page and it verifies in about 12 ms on a quiet machine, 40–90 ms in a busy browser tab. Load the tampered sample and exactly one tile
 cracks: it turns oxide red, the label under it reads `result`, and the detail panel shows the
 recomputed hash next to the recorded one.
 
