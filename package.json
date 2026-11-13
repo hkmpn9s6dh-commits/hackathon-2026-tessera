@@ -1,0 +1,27 @@
+{
+  "name": "tessera",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Tessera — receipts for AI agent runs that anyone can verify offline.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build:cli": "node scripts/build-cli.mjs",
+    "samples": "node scripts/make-samples.mjs",
+    "typecheck": "tsc --noEmit --pretty false",
+    "build": "npm run build:cli && tsc --noEmit && vite build",
+    "preview": "vite preview --port 4319 --strictPort",
+    "test": "vitest run",
+    "e2e": "node scripts/e2e.mjs",
+    "verify": "bash scripts/verify.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "esbuild": "^0.24.2",
+    "playwright-core": "^1.65.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4"
+  }
+}

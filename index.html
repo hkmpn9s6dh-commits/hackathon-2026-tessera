@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tessera — receipts for agent runs you can verify offline</title>
+    <meta
+      name="description"
+      content="An AI agent hands you a few kilobytes. Drop them in this page, offline, and see whether the run was changed after it was sealed — which step, which field."
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f6f3ea'/%3E%3Crect x='5' y='5' width='9' height='9' fill='%2315171b'/%3E%3Crect x='18' y='5' width='9' height='9' fill='%238a6a2f'/%3E%3Crect x='5' y='18' width='9' height='9' fill='%232e6b4f'/%3E%3Crect x='18' y='18' width='9' height='9' fill='%23a8332a'/%3E%3C/svg%3E" />
+    <script type="module" src="./src/site/main.ts"></script>
+  </head>
+  <body>
+    <header class="bar">
+      <div class="mark">TESSERA</div>
+      <div class="tagline">Receipts for agent runs <span class="dot">·</span> verify offline</div>
+      <div class="selfaudit" id="selfaudit" title="ResourceTiming entries whose origin is not this page">
+        external requests <b id="audit-count">0</b>
+      </div>
+    </header>
+
+    <main>
+      <section class="band band-verify">
+        <div class="left">
+          <div class="drop" id="drop" tabindex="0" role="button" aria-label="Drop a Tessera bundle or press Enter to pick a file">
+            <div class="drop-inner">
+              <svg viewBox="0 0 48 48" aria-hidden="true" class="drop-icon">
+                <rect x="6" y="6" width="14" height="14" /><rect x="28" y="6" width="14" height="14" />
+                <rect x="6" y="28" width="14" height="14" /><rect x="28" y="28" width="14" height="14" stroke-dasharray="3 3" />
+              </svg>
+              <p class="drop-title">Drop a <code>.tessera</code> file</p>
+              <p class="drop-sub">or pick one of the three samples below. Nothing leaves this page.</p>
+            </div>
+            <input type="file" id="file" accept=".tessera,.json,application/json" hidden />
+          </div>
+
+          <div class="samples" id="samples">
+            <button class="sample" data-sample="clean">
+              <span class="sample-name">clean</span>
+              <span class="sample-desc">a run that has not been touched</span>
+              <span class="sample-bytes" data-bytes="clean"></span>
+            </button>
+            <button class="sample" data-sample="tampered">
+              <span class="sample-name">tampered</span>
+              <span class="sample-desc">one field of step 4 was edited after sealing</span>
+              <span class="sample-bytes" data-bytes="tampered"></span>
+            </button>
+            <button class="sample" data-sample="forged">
+              <span class="sample-name">forged</span>
+              <span class="sample-desc">intact chain, re-signed with another key</span>
+              <span class="sample-bytes" data-bytes="forged"></span>
+            </button>
+          </div>
+
+          <p class="note">
+            The verifier is static files. No account, no API, no telemetry. Turn off your network and
+            reload: it still works.
+          </p>
+        </div>
+
+        <aside class="verdict" id="verdict" aria-live="polite">
+          <div class="verdict-head">
+            <span class="verdict-word" id="verdict-word">—</span>
+            <span class="verdict-file" id="verdict-file">nothing loaded</span>
+          </div>
+          <table class="checks" id="checks"></table>
+          <dl class="figures" id="figures">
+            <div><dt>steps</dt><dd id="f-steps">—</dd></div>
+            <div><dt>bytes</dt><dd id="f-bytes">—</dd></div>
+            <div><dt>verified in</dt><dd id="f-ms">—</dd></div>
+          </dl>
+          <div class="root">
+            <span class="root-label">root</span>
+            <code id="f-root">—</code>
+            <button class="copy" id="copy-root" title="Copy root">copy</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="band band-strip">
+        <div class="strip-head">
+          <h2>the run, tile by tile</h2>
+          <span class="strip-hint" id="strip-hint">select a sample above</span>
+        </div>
+        <ol class="strip" id="strip"></ol>
+        <div class="detail" id="detail" hidden></div>
+      </section>
+
+      <nav class="anchors">
+        <a href="#record">record a run</a>
+        <a href="#disclose">disclose one step</a>
+        <a href="#anchor">anchor the root</a>
+      </nav>
+
+      <section class="panel" id="record">
+        <div class="panel-head">
+          <h2>Record</h2>
+          <p>Run a deterministic agent in this page, then seal what it did.</p>
+        </div>
+        <div class="record-controls">
+          <button class="primary" id="run-agent">Run the agent</button>
+          <button class="secondary" id="seal-run" disabled>Seal</button>
+          <button class="secondary" id="download-run" disabled>Download bundle</button>
+          <span class="record-status" id="record-status">8 steps · reads three invoices, redacts phone numbers, writes a digest, asks before notifying</span>
+        </div>
+        <ol class="strip strip-record" id="record-strip"></ol>
+        <div class="record-out" id="record-out" hidden></div>
+      </section>
+
+      <section class="panel" id="disclose">
+        <div class="panel-head">
+          <h2>Disclose</h2>
+          <p>Prove one step to someone who should not see the rest of the session.</p>
+        </div>
+        <div class="record-controls">
+          <label class="inline">step <input type="number" id="proof-step" min="0" max="7" value="4" /></label>
+          <button class="primary" id="make-proof">Make a proof</button>
+          <button class="secondary" id="check-proof" disabled>Verify the proof alone</button>
+        </div>
+        <pre class="proof" id="proof-out" hidden></pre>
+        <p class="proof-verdict" id="proof-verdict"></p>
+      </section>
+
+      <section class="panel" id="anchor">
+        <div class="panel-head">
+          <h2>Anchor</h2>
+          <p>Turn the root into something permanent. This build stops at the packet.</p>
+        </div>
+        <div class="record-controls">
+          <button class="primary" id="make-anchor">Build the anchor packet</button>
+          <button class="secondary" id="check-anchor" disabled>Recompute the data root</button>
+        </div>
+        <pre class="proof" id="anchor-out" hidden></pre>
+        <p class="proof-verdict" id="anchor-verdict"></p>
+        <p class="note">
+          Posting to Arweave costs AR and needs a wallet, so Tessera v1 does not post. It hands you the
+          exact payload and a data root you can recompute from the bundle at any time.
+        </p>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span>Tessera v1 · MIT · no analytics, no CDN, no cookies</span>
+      <span id="foot-requests">0 requests to other origins</span>
+    </footer>
+  </body>
+</html>

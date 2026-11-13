@@ -1,0 +1,67 @@
+{
+  "v": 1,
+  "runId": "run-7-3",
+  "root": "104fce3608d228fe425173396efc10f4567b871794b5b42385406a25cc2116b5",
+  "i": 4,
+  "step": {
+    "tool": "read",
+    "args": {
+      "path": "inbox/invoice-0417.txt"
+    },
+    "result": {
+      "bytes": 54,
+      "lines": 3
+    },
+    "model": null,
+    "human": {
+      "approved": false
+    },
+    "at": "2026-11-13T01:00:11.000Z",
+    "i": 4,
+    "prev": "091fa3ce48229ac2896c413f8b7b2c1528ab869283b46d2c4f2a61d91c5b8d1e",
+    "fc": {
+      "tool": "6f3658822a73",
+      "args": "10918b4f5b53",
+      "result": "039b340add75",
+      "model": "74234e98afe7",
+      "human": "2cd29ef83c92"
+    },
+    "h": "de54f5ceaa286ffb822cb16f3d3ab99df2c51e99308d2da981812892414c091a"
+  },
+  "path": [
+    {
+      "side": "R",
+      "h": "6de9dfe2889be911845b93605c30819bdf8824951ed8ba30d4e8d412077ceb34"
+    },
+    {
+      "side": "R",
+      "h": "cf844b1f91a9da71d2c299586723d844addf4d4f9d38a58481ce76fa71d81a41"
+    },
+    {
+      "side": "L",
+      "h": "245251b281d124ddde75f7274c75ff69275d4714d5a1c4e7ba06dc2e4c36a5ff"
+    },
+    {
+      "side": "R",
+      "h": "33dd0d84df56d08022fa6f717392bac83ca9edebaac9726fe4633e1389dfb344"
+    }
+  ],
+  "operator": {
+    "keyId": "e66da6670d115c6b",
+    "publicKeyJwk": {
+      "key_ops": [
+        "verify"
+      ],
+      "ext": true,
+      "kty": "EC",
+      "x": "gw3IK1e_bdguJVSKA8Uwfsv6qhGiDG-0vpl9P0nP3t8",
+      "y": "RXwFyGfOiHZHPb-UcopO6K8hGlDv9b1_bNfX5tr7VWk",
+      "crv": "P-256"
+    }
+  },
+  "sig": {
+    "alg": "ECDSA-P256-SHA256",
+    "keyId": "e66da6670d115c6b",
+    "value": "_NGVbbuaa4SVYkL8__nr80Z7YY7rM5eUfd-3ea9OBi_IfVh67K1flU97N3ytyMBaU1MrSdAuyKG6Cehr_ghXpw"
+  }
+}
